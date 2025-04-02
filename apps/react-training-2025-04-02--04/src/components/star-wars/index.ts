@@ -1,0 +1,1 @@
+export { StarWars } from './StarWars';

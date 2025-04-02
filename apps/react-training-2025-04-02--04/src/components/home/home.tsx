@@ -4,6 +4,7 @@ import Hello from '../hello/hello';
 import Input from '../input/input';
 import Joke from '../joke/joke';
 import { SolarSystem } from '../solar-system/SolarSystem';
+import { StarWars } from '../star-wars';
 
 export const Home = () => {
   const [name, setName] = useState('');
@@ -12,9 +13,13 @@ export const Home = () => {
     <div>
       <NameContext value={{ name }}>
         <Stack>
-            <Hello name={name} />
-            <Input onInputChange={(value) => setName(value)} />
-          <Stack direction="row" alignItems="center" justifyContent="space-around">
+          <Hello name={name} />
+          <Input onInputChange={(value) => setName(value)} />
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-around"
+          >
             <Content />
             <Counter />
           </Stack>
@@ -22,6 +27,7 @@ export const Home = () => {
       </NameContext>
       <SolarSystem />
       <Joke />
+      <StarWars />
     </div>
   );
 };

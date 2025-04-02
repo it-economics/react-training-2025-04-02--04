@@ -8,10 +8,10 @@
 
 .container {
   background-color: #f0f0f0;
-  padding: 20px;
+  padding: 2px;
   border-radius: 5px;
 }
 
 .text {
-  font-size: 50px;
+  font-size: 25px;
 }
