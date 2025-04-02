@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { createContext, use, useEffect, useState } from 'react';
 import Hello from '../hello/hello';
 import Input from '../input/input';
@@ -35,8 +36,8 @@ const Counter = () => {
   return (
     <div>
       <h1>Counter: {count}</h1>
-      <button onClick={() => setCount((prev) => prev + 1)}>Increment</button>
-      <button onClick={() => setCount2((prev) => prev + 1)}>Increment 2</button>
+      <Button onClick={() => setCount((prev) => prev + 1)}>Increment</Button>
+      <Button onClick={() => setCount2((prev) => prev + 1)}>Increment 2</Button>
     </div>
   );
 };

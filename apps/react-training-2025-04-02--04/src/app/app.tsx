@@ -1,9 +1,9 @@
-import Home from '../pages/home';
+import { AppContainer } from './AppContainer';
 
 export function App() {
   return (
     <div>
-      <Home />
+      <AppContainer />
     </div>
   );
 }
