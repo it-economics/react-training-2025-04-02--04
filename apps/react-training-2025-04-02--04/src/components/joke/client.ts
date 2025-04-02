@@ -10,5 +10,8 @@ const examplePayload = {
 export type JokeResponse = Pick<typeof examplePayload, 'value'>;
 
 export const fetchNewJoke = () =>
-  fetch(API_URL).then((response) => response.json() as unknown as JokeResponse)
-    .then(({value}) => value);
+  fetch(API_URL + 'asas')
+    .then((response) => response.json() as unknown as JokeResponse)
+    .then(({ value }) => {
+      throw new Error('ohoh');
+    });

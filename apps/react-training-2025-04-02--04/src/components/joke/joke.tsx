@@ -20,10 +20,10 @@ export function Joke() {
             startTransition(() =>
               fetchNewJoke()
                 .then((joke) => setJoke(joke))
-                .catch((err) => {
-                  console.error(err);
-                  setError(true);
-                })
+                // .catch((err) => {
+                //   console.error(err);
+                //   setError(true);
+                // })
             );
           }}
         >

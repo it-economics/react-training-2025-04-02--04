@@ -1,5 +1,6 @@
 import { Button, Stack } from '@mui/material';
 import { createContext, use, useEffect, useState } from 'react';
+import { ErrorBoundary } from '../error-boundary/ErrorBoundary';
 import Hello from '../hello/hello';
 import Input from '../input/input';
 import Joke from '../joke/joke';
@@ -26,7 +27,9 @@ export const Home = () => {
         </Stack>
       </NameContext>
       <SolarSystem />
-      <Joke />
+      <ErrorBoundary fallback={<span>Chuck Norris has failed us </span>}>
+        <Joke />
+      </ErrorBoundary>
       <StarWars />
     </div>
   );
