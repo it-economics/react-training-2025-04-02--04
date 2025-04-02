@@ -1,4 +1,4 @@
-import { createContext, use, useState } from 'react';
+import { createContext, use, useEffect, useState } from 'react';
 import Hello from '../hello/hello';
 import Input from '../input/input';
 
@@ -11,7 +11,29 @@ export function App() {
         <Hello name={name} />
         <Input onInputChange={(value) => setName(value)} />
         <Content />
+        <Counter />
       </NameContext>
+    </div>
+  );
+}
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+  useEffect(() => {
+    document.title = `Count: ${count}`;
+  }, [count, count2]);
+
+  useEffect(() => {
+    document.title = `Count: ${count}`;
+  }, [count, count2]);
+
+  return (
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={() => setCount((prev) => prev + 1)}>Increment</button>
+      <button onClick={() => setCount2((prev) => prev + 1)}>Increment 2</button>
     </div>
   );
 }
