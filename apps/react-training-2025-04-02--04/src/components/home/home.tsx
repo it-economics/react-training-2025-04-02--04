@@ -1,6 +1,7 @@
 import { createContext, use, useEffect, useState } from 'react';
 import Hello from '../hello/hello';
 import Input from '../input/input';
+import { SolarSystem } from '../solar-system/SolarSystem';
 
 export const Home = () => {
   const [name, setName] = useState('');
@@ -13,6 +14,8 @@ export const Home = () => {
         <Content />
         <Counter />
       </NameContext>
+      <br/>
+      <SolarSystem />
     </div>
   );
 };
