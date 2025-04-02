@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/react-training-2025-04-02--04-e2e"
+    },
+    {
+      "path": "./apps/react-training-2025-04-02--04"
+    }
+  ]
+}
