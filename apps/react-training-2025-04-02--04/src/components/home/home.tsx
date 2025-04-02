@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import { createContext, use, useEffect, useState } from 'react';
 import Hello from '../hello/hello';
 import Input from '../input/input';
+import Joke from '../joke/joke';
 import { SolarSystem } from '../solar-system/SolarSystem';
 
 export const Home = () => {
@@ -17,6 +18,8 @@ export const Home = () => {
       </NameContext>
       <br/>
       <SolarSystem />
+      <br/>
+      <Joke />
     </div>
   );
 };
