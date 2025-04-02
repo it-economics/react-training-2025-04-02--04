@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { createContext, use, useEffect, useState } from 'react';
 import Hello from '../hello/hello';
 import Input from '../input/input';
@@ -11,14 +11,16 @@ export const Home = () => {
   return (
     <div>
       <NameContext value={{ name }}>
-        <Hello name={name} />
-        <Input onInputChange={(value) => setName(value)} />
-        <Content />
-        <Counter />
+        <Stack>
+            <Hello name={name} />
+            <Input onInputChange={(value) => setName(value)} />
+          <Stack direction="row" alignItems="center" justifyContent="space-around">
+            <Content />
+            <Counter />
+          </Stack>
+        </Stack>
       </NameContext>
-      <br/>
       <SolarSystem />
-      <br/>
       <Joke />
     </div>
   );
