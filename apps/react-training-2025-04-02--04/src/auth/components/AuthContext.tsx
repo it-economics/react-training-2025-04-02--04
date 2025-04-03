@@ -1,6 +1,6 @@
 import { createContext, FC, PropsWithChildren, use, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLogin, useRegister } from '../auth-utils';
+import { invalidateToken, useLogin, useRegister } from '../auth-utils';
 
 interface IAuthContext {
   login: (email: string, password: string) => Promise<void>;
@@ -23,6 +23,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate();
 
   const logout = () => {
+    invalidateToken()
     setIsLoggedIn(false);
     navigate('/login');
   };
