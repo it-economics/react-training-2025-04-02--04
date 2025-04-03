@@ -17,13 +17,28 @@ const getHeaders = () => ({
   },
 });
 
+const fetchNotes = () =>
+  fetch(API_URL + '/notes', { ...getHeaders() })
+    .then((res) => res.json() as unknown as NotesResponse)
+    .then((res) => Object.values(res.notes));
+
+const addNote = (note: Note) =>
+  fetch(API_URL + '/notes', {
+    method: 'PUT',
+    body: JSON.stringify({ note }),
+    ...getHeaders(),
+  });
+
+const deleteNote = (id: Note['id']) =>
+  fetch(`${API_URL}/notes/${id}`, {
+    method: 'DELETE',
+    ...getHeaders(),
+  });
+
 export const useNotes = () => {
   const { data } = useQuery({
     queryKey: [NOTES_QUERY_KEY],
-    queryFn: () =>
-      fetch(API_URL + '/notes', { ...getHeaders() })
-        .then((res) => res.json() as unknown as NotesResponse)
-        .then((res) => Object.values(res.notes)),
+    queryFn: fetchNotes,
   });
   return data ?? [];
 };
@@ -31,12 +46,17 @@ export const useNotes = () => {
 export const useAddNote = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (note: Note) =>
-      fetch(API_URL + '/notes', {
-        method: 'PUT',
-        body: JSON.stringify({ note }),
-        ...getHeaders(),
-      }),
+    mutationFn: addNote,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [NOTES_QUERY_KEY] });
+    },
+  });
+};
+
+export const useDeleteNote = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteNote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [NOTES_QUERY_KEY] });
     },
