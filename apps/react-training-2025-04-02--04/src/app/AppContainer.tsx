@@ -15,6 +15,7 @@ export const AppContainer = () => {
             <MenuButton to="/star-wars" label="Star Wars" />
             <MenuButton to="/solar-system" label="Solar System" />
             <MenuButton to="/joke" label="Chuck Norris Jokes" />
+            <MenuButton to="/notes" label="Notes" />
             {isLoggedIn && <Button onClick={logout}>Logout</Button>}
           </Toolbar>
         </Stack>

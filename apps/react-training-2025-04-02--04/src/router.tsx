@@ -13,6 +13,7 @@ const SolarSystem = lazy(() => import('./pages/solar-system'));
 const NotFound = lazy(() => import('./pages/not-found'));
 const Register = lazy(() => import('./auth/pages/register'));
 const Login = lazy(() => import('./auth/pages/login'));
+const NotesPage = lazy(() => import('./components/notes/pages/notes-gallery'));
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,7 @@ export const router = createBrowserRouter([
               },
             ],
           },
+          { path: 'notes', element: <NotesPage /> },
         ],
       },
       { path: 'register', element: <Register /> },
