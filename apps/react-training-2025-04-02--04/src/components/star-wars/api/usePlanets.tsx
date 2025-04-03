@@ -35,8 +35,10 @@ export const usePlanets = () => {
   };
 };
 
+const urlRegex = /^.*\/(\d+)\/?$/
+
 const toModel = (planet: PlanetResponse): Planet => ({
   name: planet.name,
-  url: planet.url,
+  id: urlRegex.exec(planet.url)![1],
   diameter: Number(planet.diameter),
 });

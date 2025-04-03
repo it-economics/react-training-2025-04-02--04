@@ -1,11 +1,12 @@
 import { Stack, Typography } from '@mui/material';
-import { StarWarsPlanets } from './StarWarsPlanets';
+import { FC, PropsWithChildren } from 'react';
+import { Outlet } from 'react-router-dom';
 
-export const StarWars = () => (
+export const StarWars: FC<PropsWithChildren> = ({ children }) => (
   <Stack>
     <Typography component="h1" variant="h3">
       Star Wars!
     </Typography>
-    <StarWarsPlanets />
+    <Outlet />
   </Stack>
 );

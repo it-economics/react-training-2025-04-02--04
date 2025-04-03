@@ -7,11 +7,11 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { usePlanets } from './api';
 import { StarWarsPlanet } from './StarWarsPlanet';
 
-export const StarWarsPlanets = () => {
+export const StarWarsPlanets: FC<PropsWithChildren> = ({ children }) => {
   const { planets, next, isLoading, previous, error } = usePlanets();
 
   if (error)
@@ -31,6 +31,7 @@ export const StarWarsPlanets = () => {
         <NavButton label="Previous" onClick={previous} loading={isLoading} />
         <NavButton label="Next" onClick={next} loading={isLoading} />
       </Stack>
+      {children}
     </Stack>
   );
 };
