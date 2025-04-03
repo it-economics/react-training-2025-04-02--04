@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import App from './app/app';
 import { AuthContextProvider } from './auth/components/AuthContext';
+import { withAuthGuard } from './auth/components/AuthGuard';
 import { Home } from './components/home/home';
 import { StarWarsPlanetDetails } from './components/star-wars/StarWarsPlanetDetails';
 import { StarWarsPlanets } from './components/star-wars/StarWarsPlanets';
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <App />,
+        element: withAuthGuard(<App />),
         children: [
           { index: true, element: <Navigate to="./home" replace /> },
           { path: 'home', element: <Home /> },
