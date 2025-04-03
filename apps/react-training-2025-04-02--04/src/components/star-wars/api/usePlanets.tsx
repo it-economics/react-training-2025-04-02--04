@@ -47,7 +47,12 @@ const toModel = (planet: PlanetResponse): Planet => ({
 });
 
 const fetchPlanet = (id: string) =>
-  fetch(`${PLANETS_URL}${id}`).then((res) => res.json() as unknown as PlanetResponse);
+  fetch(`${PLANETS_URL}${id}`).then((res) => {
+    if (!res.ok || res.status !== 200) {
+      throw new Error("Invalid response")
+    }
+    return res.json() as unknown as PlanetResponse;
+  });
 
 export const usePlanet = (id?: string) => {
   const [planet, setPlanet] = useState<PlanetResponse>();
