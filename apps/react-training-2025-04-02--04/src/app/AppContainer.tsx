@@ -1,13 +1,31 @@
-import { AppBar, Box, Stack, Typography } from '@mui/material';
-import Home from '../pages/home';
+import { AppBar, Box, Button, Stack, Toolbar, Typography } from '@mui/material';
+import { FC, ReactNode, Suspense } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
 
 export const AppContainer = () => (
   <Box height="100vh" width="100vw">
     <AppBar position="static">
       <Stack direction="row">
-        <Typography variant="h4">Home</Typography>
+        <Toolbar>
+          <MenuButton to="/home" label="Home" />
+          <MenuButton to="/star-wars" label="Star Wars" />
+          <MenuButton to="/solar-system" label="Solar System" />
+          <MenuButton to="/joke" label="Chuck Norris Jokes" />
+        </Toolbar>
       </Stack>
     </AppBar>
-    <Home />
+    <Suspense fallback={<Typography>Loading in AppContainer</Typography>}>
+      <Outlet />
+    </Suspense>
   </Box>
+);
+
+const MenuButton: FC<{ to: string; label: ReactNode }> = ({ to, label }) => (
+  <NavLink to={to}>
+    {({ isActive }) => (
+      <Button variant={isActive ? 'contained' : 'text'} color="secondary">
+        {label}
+      </Button>
+    )}
+  </NavLink>
 );
