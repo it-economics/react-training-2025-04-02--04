@@ -9,39 +9,47 @@ const Joke = lazy(() => import('./pages/joke'));
 const StarWars = lazy(() => import('./pages/star-wars'));
 const SolarSystem = lazy(() => import('./pages/solar-system'));
 const NotFound = lazy(() => import('./pages/not-found'));
+const Register = lazy(() => import('./pages/register'));
 
 export const router = createBrowserRouter([
   {
     path: '',
-    element: <App />,
+    element: <Outlet />,
     children: [
-      { index: true, element: <Navigate to="./home" replace /> },
-      { path: 'home', element: <Home /> },
-      { path: 'joke', element: <Joke /> },
-      { path: 'solar-system', element: <SolarSystem /> },
       {
-        path: 'star-wars',
-        element: <StarWars />,
+        path: '',
+        element: <App />,
         children: [
+          { index: true, element: <Navigate to="./home" replace /> },
+          { path: 'home', element: <Home /> },
+          { path: 'joke', element: <Joke /> },
+          { path: 'solar-system', element: <SolarSystem /> },
           {
-            index: true,
-            element: <Navigate to="./planets" replace />,
-          },
-          {
-            path: 'planets',
-            element: (
-              <StarWarsPlanets>
-                <Outlet />
-              </StarWarsPlanets>
-            ),
+            path: 'star-wars',
+            element: <StarWars />,
             children: [
-              { index: true, element: null },
-              { path: ':id', element: <StarWarsPlanetDetails /> },
+              {
+                index: true,
+                element: <Navigate to="./planets" replace />,
+              },
+              {
+                path: 'planets',
+                element: (
+                  <StarWarsPlanets>
+                    <Outlet />
+                  </StarWarsPlanets>
+                ),
+                children: [
+                  { index: true, element: null },
+                  { path: ':id', element: <StarWarsPlanetDetails /> },
+                ],
+              },
             ],
           },
         ],
       },
-      { path: '*', element: <NotFound /> },
+      { path: 'register', element: <Register /> },
+      { path: '*', element: <NotFound /> }
     ],
   },
 ]);
