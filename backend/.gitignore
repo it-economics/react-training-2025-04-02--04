@@ -4,6 +4,9 @@
 tmp
 /out-tsc
 
+.nx/cache
+.nx/workspace-data
+
 # dependencies
 node_modules
 
