@@ -1,7 +1,7 @@
-import { Box, Fab } from '@mui/material';
+import { Box, Fab, Stack } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { useAddNote, useNotes } from '../../api/notes-api';
-import { Fragment } from 'react';
+import { NoteCard } from '../../components/NoteCard';
 
 export const NotesGallery = () => {
   const notes = useNotes();
@@ -18,12 +18,11 @@ export const NotesGallery = () => {
           overflow: 'auto',
         }}
       >
-        {notes.map((note) => (
-          <Fragment key={note.id}>
-            <span>{note.title}</span>
-            <br />
-          </Fragment>
-        ))}
+        <Stack direction="row" flexWrap="wrap">
+          {notes.map((note) => (
+            <NoteCard note={note} key={note.id} />
+          ))}
+        </Stack>
       </Box>
       <Box sx={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem' }}>
         <Fab
