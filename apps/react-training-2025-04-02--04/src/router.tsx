@@ -6,6 +6,7 @@ import { Home } from './components/home/home';
 const Joke = lazy(() => import('./pages/joke'));
 const StarWars = lazy(() => import('./pages/star-wars'));
 const SolarSystem = lazy(() => import('./pages/solar-system'));
+const NotFound = lazy(() => import('./pages/not-found'));
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: 'joke', element: <Joke /> },
       { path: 'solar-system', element: <SolarSystem /> },
       { path: 'star-wars', element: <StarWars /> },
+      { path: '*', element: <NotFound /> },
     ],
   },
 ]);
