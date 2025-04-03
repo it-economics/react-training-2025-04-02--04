@@ -9,7 +9,6 @@ export const StarWarsPlanet: FC<{ planet: Planet }> = ({ planet }) => (
       <Stack spacing={2}>
         <Typography variant="h5">{planet.name}</Typography>
         <Link to={`./${planet.id}`}>Show details</Link>
-        <Typography>Diameter: {planet.diameter}</Typography>
       </Stack>
     </Paper>
   </Box>

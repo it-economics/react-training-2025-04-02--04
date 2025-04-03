@@ -41,4 +41,36 @@ const toModel = (planet: PlanetResponse): Planet => ({
   name: planet.name,
   id: urlRegex.exec(planet.url)![1],
   diameter: Number(planet.diameter),
+  climate: planet.climate,
+  terrain: planet.terrain,
+  gravity: planet.gravity,
 });
+
+const fetchPlanet = (id: string) =>
+  fetch(`${PLANETS_URL}${id}`).then((res) => res.json() as unknown as PlanetResponse);
+
+export const usePlanet = (id?: string) => {
+  const [planet, setPlanet] = useState<PlanetResponse>();
+  const [error, setError] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    if (!id) return;
+
+    setError(false);
+    startTransition(() =>
+      fetchPlanet(id)
+        .then((planet) => setPlanet(planet))
+        .catch((err) => {
+          console.error(err);
+          setError(true);
+        })
+    );
+  }, [id]);
+
+  return {
+    isLoading: isPending,
+    error,
+    planet: planet ? toModel(planet): undefined,
+  };
+};

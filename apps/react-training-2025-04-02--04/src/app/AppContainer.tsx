@@ -15,7 +15,9 @@ export const AppContainer = () => (
       </Stack>
     </AppBar>
     <Suspense fallback={<Typography>Loading in AppContainer</Typography>}>
-      <Outlet />
+      <Box padding="20px">
+        <Outlet />
+      </Box>
     </Suspense>
   </Box>
 );
