@@ -42,7 +42,19 @@ export const useLogin = (onLogin: VoidFunction) => {
     login(email, password)
       .then((token) => {
         onLogin()
-        navigate('/home');
+        const deepLink = getDeepLink()
+        deepLink ? navigate(deepLink) : navigate('/home');
       })
       .catch(() => console.error('Login failed :('));
 };
+
+const DEEP_LINK_KEY = 'deep-link';
+
+export const storeDeepLink = (deepLink: string) =>
+  window.localStorage.setItem(DEEP_LINK_KEY, deepLink);
+
+export const getDeepLink = () => {
+  const deepLink = window.localStorage.getItem(DEEP_LINK_KEY);
+  window.localStorage.removeItem(DEEP_LINK_KEY);
+  return deepLink;
+}

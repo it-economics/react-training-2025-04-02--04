@@ -1,9 +1,15 @@
 import { FC, PropsWithChildren, ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
+import { storeDeepLink } from '../auth-utils';
 import { useAuthContext } from './AuthContext';
 
 export const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
   const { isLoggedIn } = useAuthContext();
+  const { pathname } = useLocation();
+
+  if (!isLoggedIn) {
+    storeDeepLink(pathname);
+  }
 
   return isLoggedIn ? children : <Navigate to="/login" />;
 };
