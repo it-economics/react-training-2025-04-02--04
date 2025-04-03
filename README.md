@@ -6,6 +6,25 @@
 
 [Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
+## Backend
+
+### Start via Docker Compose
+
+```shell
+# Start all containers
+docker compose up
+
+# Start only backend
+# docker compose up backend
+
+# Start the containers "detached"
+# docker compose up -d
+# Stop the containers again
+# docker compose stop
+# Stop and remove containers
+# docker compose down
+```
+
 ## Run tasks
 
 To run the dev server for your app, use:

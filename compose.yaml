@@ -1,0 +1,9 @@
+---
+services:
+  backend:
+    build:
+      context: backend
+    environment:
+      NODE_ENV: development
+    ports:
+      - 9000:9000
