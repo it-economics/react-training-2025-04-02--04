@@ -11,4 +11,15 @@ export const register = (email: string, password: string) =>
     headers: { authorization: generateAuthHeader(email, password) },
   }).catch((err) => console.error(err));
 
-export const login = (email: string, password: string) => Promise.resolve()
+export interface LoginResponse {
+  token: string;
+}
+
+export const login = (email: string, password: string) =>
+  fetch(`${API_URL}/login`, {
+    method: 'POST',
+    headers: { authorization: generateAuthHeader(email, password) },
+  })
+    .then((res) => res.json() as unknown as LoginResponse)
+    .then(({ token }) => token)
+    .catch((err) => console.error(err));

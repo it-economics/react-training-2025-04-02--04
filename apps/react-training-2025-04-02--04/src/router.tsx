@@ -10,6 +10,7 @@ const StarWars = lazy(() => import('./pages/star-wars'));
 const SolarSystem = lazy(() => import('./pages/solar-system'));
 const NotFound = lazy(() => import('./pages/not-found'));
 const Register = lazy(() => import('./pages/register'));
+const Login = lazy(() => import('./pages/login'));
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,7 @@ export const router = createBrowserRouter([
         ],
       },
       { path: 'register', element: <Register /> },
+      { path: 'login', element: <Login /> },
       { path: '*', element: <NotFound /> }
     ],
   },
