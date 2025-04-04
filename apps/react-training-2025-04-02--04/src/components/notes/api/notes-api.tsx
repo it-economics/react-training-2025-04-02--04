@@ -2,7 +2,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Note } from '../model/notes';
 import { getToken } from '../../../auth/auth-utils';
 
-const API_URL = 'http://localhost:9000';
+// const API_URL = 'http://localhost:9000';
+const API_URL = '/api';
 
 const NOTES_QUERY_KEY = 'notes';
 
@@ -17,7 +18,7 @@ const getHeaders = () => ({
   },
 });
 
-const fetchNotes = () =>
+export const fetchNotes = () =>
   fetch(API_URL + '/notes', { ...getHeaders() })
     .then((res) => res.json() as unknown as NotesResponse)
     .then((res) => Object.values(res.notes));
