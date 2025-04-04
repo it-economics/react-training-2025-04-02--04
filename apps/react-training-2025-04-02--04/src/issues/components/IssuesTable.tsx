@@ -1,16 +1,18 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { issueFactory, IssuePriority } from '../model/issue';
-
-const issues = [
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-  issueFactory(),
-];
+import {
+  DataGrid,
+  GridActionsCellItem,
+  GridColDef,
+  GridRowParams,
+  GridToolbarContainer,
+} from '@mui/x-data-grid';
+import { Issue, IssuePriority } from '../model/issue';
+import { useIssues } from '../contexts/IssuesHandlingContext';
+import { Add, Delete, Save } from '@mui/icons-material';
+import { Button } from '@mui/material';
 
 export const IssuesTable = () => {
+  const { issues, deleteIssue } = useIssues();
+
   const columns: GridColDef[] = [
     {
       field: 'id',
@@ -60,7 +62,44 @@ export const IssuesTable = () => {
       sortable: true,
       editable: false,
     },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      getActions: ({ row }: GridRowParams<Issue>) => {
+        return [
+          <GridActionsCellItem
+            label="Delete"
+            className="textPrimary"
+            icon={<Delete />}
+            color="inherit"
+            onClick={() => deleteIssue(row.id)}
+          />,
+        ];
+      },
+    },
   ];
 
-  return <DataGrid columns={columns} rows={issues} />;
+  return (
+    <DataGrid
+      columns={columns}
+      rows={issues}
+      slots={{ toolbar: EditToolbar }}
+    />
+  );
+};
+
+const EditToolbar = () => {
+  const { addIssue, saveIssues } = useIssues();
+  return (
+    <GridToolbarContainer>
+      <Button startIcon={<Add />} onClick={addIssue}>
+        Add Issue
+      </Button>
+      <Button startIcon={<Save />} onClick={saveIssues}>
+        Save
+      </Button>
+    </GridToolbarContainer>
+  );
 };

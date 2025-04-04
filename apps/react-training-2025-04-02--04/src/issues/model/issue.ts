@@ -15,11 +15,11 @@ export type Issue = {
   createdAt: number;
 };
 
-export const issueFactory = () => ({
+export const issueFactory = (): Issue => ({
   id: uuidv4(),
   title: 'new',
   description: '<EMPTY>',
   completed: false,
-  priority: 'LOW',
+  priority: IssuePriority.LOW,
   createdAt: Date.now(),
 });
