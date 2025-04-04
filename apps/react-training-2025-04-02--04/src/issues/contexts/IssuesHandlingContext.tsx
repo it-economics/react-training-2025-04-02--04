@@ -5,14 +5,17 @@ import {
   useCallback,
   useContext,
   useMemo,
-  useState,
 } from 'react';
-import { Issue, issueFactory } from '../model/issue';
+import { Issue } from '../model/issue';
+import { add, remove, update, useIssues } from '../slice';
+import { useAppDispatch } from '../../redux/hooks';
 
+type IssueUpdate = Partial<Issue> & Pick<Issue, 'id'>;
 type IssuesHandlingContextType = {
   issues: Issue[];
   addIssue: () => void;
   deleteIssue: (id: Issue['id']) => void;
+  updateIssue: (update: IssueUpdate) => void;
   saveIssues: () => void;
 };
 
@@ -24,28 +27,34 @@ const IssuesHandlingContext = createContext<IssuesHandlingContextType>({
   issues: [],
   addIssue: throwContextError,
   deleteIssue: throwContextError,
+  updateIssue: throwContextError,
   saveIssues: throwContextError,
 });
 
 export const IssuesHandlingContextProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [issues, setIssues] = useState([
-    issueFactory(),
-    issueFactory(),
-    issueFactory(),
-    issueFactory(),
-    issueFactory(),
-  ]);
+  const issues = useIssues();
+  const dispatch = useAppDispatch();
 
-  const deleteIssue = useCallback((id: Issue['id']) => {
-    console.log('Delete issue with id:', id);
-    setIssues((prev) => prev.filter((issue) => issue.id !== id));
-  }, []);
+  const deleteIssue = useCallback(
+    (id: Issue['id']) => {
+      console.log('Delete issue with id:', id);
+      dispatch(remove(id));
+    },
+    [dispatch]
+  );
 
   const addIssue = useCallback(() => {
-    setIssues((prev) => [...prev, issueFactory()]);
-  }, []);
+    dispatch(add());
+  }, [dispatch]);
+
+  const updateIssue = useCallback(
+    (issueUpdate: IssueUpdate) => {
+      dispatch(update(issueUpdate));
+    },
+    [dispatch]
+  );
 
   const saveIssues = useCallback(() => {
     // TODO
@@ -56,9 +65,10 @@ export const IssuesHandlingContextProvider: FC<PropsWithChildren> = ({
       issues,
       addIssue,
       deleteIssue,
+      updateIssue,
       saveIssues,
     }),
-    [issues, addIssue, deleteIssue, saveIssues]
+    [issues, addIssue, deleteIssue, updateIssue, saveIssues]
   );
 
   return (
@@ -68,4 +78,4 @@ export const IssuesHandlingContextProvider: FC<PropsWithChildren> = ({
   );
 };
 
-export const useIssues = () => useContext(IssuesHandlingContext);
+export const useIssuesHandling = () => useContext(IssuesHandlingContext);

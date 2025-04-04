@@ -6,12 +6,12 @@ import {
   GridToolbarContainer,
 } from '@mui/x-data-grid';
 import { Issue, IssuePriority } from '../model/issue';
-import { useIssues } from '../contexts/IssuesHandlingContext';
+import { useIssuesHandling } from '../contexts/IssuesHandlingContext';
 import { Add, Delete, Save } from '@mui/icons-material';
 import { Button } from '@mui/material';
 
 export const IssuesTable = () => {
-  const { issues, deleteIssue } = useIssues();
+  const { issues, deleteIssue, updateIssue } = useIssuesHandling();
 
   const columns: GridColDef[] = [
     {
@@ -86,12 +86,16 @@ export const IssuesTable = () => {
       columns={columns}
       rows={issues}
       slots={{ toolbar: EditToolbar }}
+      processRowUpdate={(newRow) => {
+        updateIssue(newRow);
+        return newRow;
+      }}
     />
   );
 };
 
 const EditToolbar = () => {
-  const { addIssue, saveIssues } = useIssues();
+  const { addIssue, saveIssues } = useIssuesHandling();
   return (
     <GridToolbarContainer>
       <Button startIcon={<Add />} onClick={addIssue}>
