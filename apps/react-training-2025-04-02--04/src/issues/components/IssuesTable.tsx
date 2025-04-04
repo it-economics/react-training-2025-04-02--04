@@ -9,9 +9,11 @@ import { Issue, IssuePriority } from '../model/issue';
 import { useIssuesHandling } from '../contexts/IssuesHandlingContext';
 import { Add, Delete, Save } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import { useEnumsTranslation } from '../../i18n';
 
 export const IssuesTable = () => {
   const { issues, deleteIssue, updateIssue } = useIssuesHandling();
+  const { t: tEnum } = useEnumsTranslation('IssuePriority');
 
   const columns: GridColDef[] = [
     {
@@ -52,6 +54,7 @@ export const IssuesTable = () => {
       type: 'singleSelect',
       editable: true,
       valueOptions: Object.values(IssuePriority),
+      getOptionLabel: (value) => tEnum(value),
     },
     {
       field: 'createdAt',
