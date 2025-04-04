@@ -1,0 +1,7 @@
+{
+    "IssuePriority": {
+        "LOW": "Niedrig",
+        "MEDIUM": "Mittel",
+        "HIGH": "Hoch"
+    }
+}

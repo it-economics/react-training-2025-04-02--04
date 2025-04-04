@@ -1,0 +1,17 @@
+{
+    "IssuesTable": {
+        "columns": {
+            "id": "ID",
+            "title": "Titel",
+            "description": "Beschreibung",
+            "completed": "Abgeschlossen",
+            "priority": "Priorität",
+            "createdAt": "Erstellt am",
+            "actions": "Aktionen"
+        },
+        "actions": {
+            "addIssue": "Neues Problem",
+            "save": "Speichern"
+        }
+    }
+}

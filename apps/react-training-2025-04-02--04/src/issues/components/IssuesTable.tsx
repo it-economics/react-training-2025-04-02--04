@@ -9,23 +9,24 @@ import { Issue, IssuePriority } from '../model/issue';
 import { useIssuesHandling } from '../contexts/IssuesHandlingContext';
 import { Add, Delete, Save } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { useEnumsTranslation } from '../../i18n';
+import { useComponentsTranslation, useEnumsTranslation } from '../../i18n';
 
 export const IssuesTable = () => {
   const { issues, deleteIssue, updateIssue } = useIssuesHandling();
   const { t: tEnum } = useEnumsTranslation('IssuePriority');
+  const { t: tComponent } = useComponentsTranslation('IssuesTable.columns');
 
   const columns: GridColDef[] = [
     {
       field: 'id',
-      headerName: 'ID',
+      headerName: tComponent('id'),
       width: 100,
       type: 'string',
       sortable: true,
     },
     {
       field: 'title',
-      headerName: 'Title',
+      headerName: tComponent('title'),
       width: 200,
       type: 'string',
       sortable: true,
@@ -33,7 +34,7 @@ export const IssuesTable = () => {
     },
     {
       field: 'description',
-      headerName: 'Description',
+      headerName: tComponent('description'),
       width: 200,
       type: 'string',
       sortable: true,
@@ -41,7 +42,7 @@ export const IssuesTable = () => {
     },
     {
       field: 'completed',
-      headerName: 'Completed',
+      headerName: tComponent('completed'),
       width: 150,
       type: 'boolean',
       sortable: true,
@@ -49,7 +50,7 @@ export const IssuesTable = () => {
     },
     {
       field: 'priority',
-      headerName: 'Priority',
+      headerName: tComponent('priority'),
       width: 100,
       type: 'singleSelect',
       editable: true,
@@ -58,7 +59,7 @@ export const IssuesTable = () => {
     },
     {
       field: 'createdAt',
-      headerName: 'Created At',
+      headerName: tComponent('createdAt'),
       width: 200,
       type: 'date',
       valueFormatter: (value) => new Date(value).toUTCString(),
@@ -68,7 +69,7 @@ export const IssuesTable = () => {
     {
       field: 'actions',
       type: 'actions',
-      headerName: 'Actions',
+      headerName: tComponent('actions'),
       width: 100,
       getActions: ({ row }: GridRowParams<Issue>) => {
         return [
@@ -99,13 +100,15 @@ export const IssuesTable = () => {
 
 const EditToolbar = () => {
   const { addIssue, saveIssues } = useIssuesHandling();
+  const { t: tActions } = useComponentsTranslation('IssuesTable.actions');
+
   return (
     <GridToolbarContainer>
       <Button startIcon={<Add />} onClick={addIssue}>
-        Add Issue
+        {tActions('addIssue')}
       </Button>
       <Button startIcon={<Save />} onClick={saveIssues}>
-        Save
+        {tActions('save')}
       </Button>
     </GridToolbarContainer>
   );
