@@ -35,6 +35,13 @@ const deleteNote = (id: Note['id']) =>
     ...getHeaders(),
   });
 
+const updateNote = (note: Note) =>
+  fetch(`${API_URL}/notes/${note.id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ note }),
+    ...getHeaders(),
+  });
+
 export const useNotes = () => {
   const { data } = useQuery({
     queryKey: [NOTES_QUERY_KEY],
@@ -57,6 +64,16 @@ export const useDeleteNote = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteNote,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [NOTES_QUERY_KEY] });
+    },
+  });
+};
+
+export const useUpdateNote = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateNote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [NOTES_QUERY_KEY] });
     },
