@@ -6,6 +6,7 @@ import { withAuthGuard } from './auth/components/AuthGuard';
 import { Home } from './components/home/home';
 import { StarWarsPlanetDetails } from './components/star-wars/StarWarsPlanetDetails';
 import { StarWarsPlanets } from './components/star-wars/StarWarsPlanets';
+import { Issues } from './issues';
 
 const Joke = lazy(() => import('./pages/joke'));
 const StarWars = lazy(() => import('./pages/star-wars'));
@@ -55,6 +56,7 @@ export const router = createBrowserRouter([
             ],
           },
           { path: 'notes', element: <NotesPage /> },
+          { path: 'issues', element: <Issues /> },
         ],
       },
       { path: 'register', element: <Register /> },
