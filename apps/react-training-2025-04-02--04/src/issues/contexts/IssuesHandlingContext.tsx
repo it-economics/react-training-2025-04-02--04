@@ -4,10 +4,18 @@ import {
   PropsWithChildren,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
 } from 'react';
 import { Issue } from '../model/issue';
-import { add, remove, update, useIssues } from '../slice';
+import {
+  add,
+  fetchIssues,
+  remove,
+  storeIssues,
+  update,
+  useIssues,
+} from '../slice';
 import { useAppDispatch } from '../../redux/hooks';
 
 type IssueUpdate = Partial<Issue> & Pick<Issue, 'id'>;
@@ -34,8 +42,12 @@ const IssuesHandlingContext = createContext<IssuesHandlingContextType>({
 export const IssuesHandlingContextProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const issues = useIssues();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIssues());
+  }, [dispatch]);
+  const issues = useIssues();
 
   const deleteIssue = useCallback(
     (id: Issue['id']) => {
@@ -57,8 +69,8 @@ export const IssuesHandlingContextProvider: FC<PropsWithChildren> = ({
   );
 
   const saveIssues = useCallback(() => {
-    // TODO
-  }, []);
+    dispatch(storeIssues());
+  }, [dispatch]);
 
   const contextValue: IssuesHandlingContextType = useMemo(
     () => ({
